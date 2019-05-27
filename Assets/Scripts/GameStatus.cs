@@ -12,6 +12,16 @@ public class GameStatus : MonoBehaviour
 	[SerializeField] int currentScore = 0;
 	[SerializeField] TextMeshProUGUI scoreText;
 
+	private void Awake(){ 
+		// Singleton Pattern, a way to have our score count from one level to another, instead of destroying it and starting form zero
+		int gameStatusCount = FindObjectsOfType<GameStatus>().Length; // gets the count of the objecct
+		if(gameStatusCount > 1){
+			Destroy(gameObject);
+		}else{
+			DontDestroyOnLoad(gameObject);
+		}
+	}
+
 	private void Start(){
 		scoreText.text = currentScore.ToString();
 	}
